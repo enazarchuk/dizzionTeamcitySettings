@@ -7,6 +7,9 @@
       <option name="artifactRules" value="dump.sql =&gt; dump-%intSuffix%.sql&#xA;dizzion.war =&gt; dizzion-%intSuffix%.war" />
       <option name="buildNumberPattern" value="%dep.Portal20_Build.build.number%" />
     </options>
+    <disabled-settings>
+      <setting-ref ref="RUNNER_4" />
+    </disabled-settings>
     <parameters>
       <param name="intSuffix" value="int-%build.number%" />
     </parameters>

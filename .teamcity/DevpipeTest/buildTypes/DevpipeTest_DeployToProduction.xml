@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<build-type xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" uuid="deaa3f25-7848-4a78-9a68-46f491115f80" xsi:noNamespaceSchemaLocation="http://www.jetbrains.com/teamcity/schemas/9.0/project-config.xsd">
+  <name>deploy to production and publish release</name>
+  <description />
+  <settings>
+    <options>
+      <option name="artifactRules" value="target\%artifactName%" />
+      <option name="buildNumberPattern" value="%dep.DevpipeTest_Build.build.number%" />
+    </options>
+    <parameters />
+    <build-runners>
+      <runner id="RUNNER_25" name="Deploy" type="cargo-deploy-runner">
+        <parameters>
+          <param name="jetbrains.buildServer.deployer.container.type" value="tomcat8x" />
+          <param name="jetbrains.buildServer.deployer.sourcePath" value="target/%artifactName%" />
+          <param name="jetbrains.buildServer.deployer.targetUrl" value="localhost:8082" />
+          <param name="jetbrains.buildServer.deployer.username" value="tomcat" />
+          <param name="secure:jetbrains.buildServer.deployer.password" value="zxx90567b04051eaa0f" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_14" name="" type="Maven2">
+        <parameters>
+          <param name="goals" value="package -Drevision=%dep.DevpipeTest_Build.build.vcs.number%" />
+          <param name="maven.home" value="" />
+          <param name="mavenSelection" value="mavenSelection:default" />
+          <param name="org.jfrog.artifactory.selectedDeployableServer.defaultModuleVersionConfiguration" value="GLOBAL" />
+          <param name="org.jfrog.artifactory.selectedDeployableServer.deployArtifacts" value="true" />
+          <param name="org.jfrog.artifactory.selectedDeployableServer.envVarsExcludePatterns" value="*password*,*secret*" />
+          <param name="org.jfrog.artifactory.selectedDeployableServer.publishBuildInfo" value="true" />
+          <param name="org.jfrog.artifactory.selectedDeployableServer.targetRepo" value="ext-release-local" />
+          <param name="org.jfrog.artifactory.selectedDeployableServer.targetSnapshotRepo" value="ext-release-local" />
+          <param name="org.jfrog.artifactory.selectedDeployableServer.urlId" value="0" />
+          <param name="pomLocation" value="pom.xml" />
+          <param name="teamcity.coverage.emma.include.source" value="true" />
+          <param name="teamcity.coverage.emma.instr.parameters" value="-ix -*Test*" />
+          <param name="teamcity.coverage.idea.includePatterns" value="*" />
+          <param name="teamcity.coverage.jacoco.patterns" value="+:*" />
+          <param name="teamcity.step.mode" value="default" />
+          <param name="userSettingsPath" value="" />
+          <param name="userSettingsSelection" value="userSettingsSelection:default" />
+        </parameters>
+      </runner>
+    </build-runners>
+    <vcs-settings />
+    <requirements />
+    <build-triggers />
+    <artifact-dependencies>
+      <dependency sourceBuildTypeId="DevpipeTest_PublishRC" cleanDestination="true">
+        <revisionRule name="sameChainOrLastFinished" revision="latest.sameChainOrLastFinished" />
+        <artifact sourcePath="**/*" />
+      </dependency>
+    </artifact-dependencies>
+    <dependencies>
+      <depend-on sourceBuildTypeId="DevpipeTest_PublishRC">
+        <options>
+          <option name="run-build-if-dependency-failed" value="RUN_ADD_PROBLEM" />
+          <option name="take-started-build-with-same-revisions" value="true" />
+          <option name="take-successful-builds-only" value="true" />
+        </options>
+      </depend-on>
+    </dependencies>
+    <cleanup />
+  </settings>
+</build-type>
+

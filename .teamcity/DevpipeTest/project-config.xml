@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" uuid="9777858b-4241-48ad-b08f-db8c4c60a65e" xsi:noNamespaceSchemaLocation="http://www.jetbrains.com/teamcity/schemas/9.0/project-config.xsd">
+  <name>devpipe-test</name>
+  <parameters>
+    <param name="artifactName" value="devpipe-test.war" />
+  </parameters>
+  <cleanup />
+  <buildTypesOrder order="DevpipeTest_Build,DevpipeTest_DeployInt,DevpipeTest_DeployTest,DevpipeTest_PublishRC,DevpipeTest_DeployToProduction" />
+</project>
+

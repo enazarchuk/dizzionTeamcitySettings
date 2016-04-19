@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<build-type xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" uuid="2cdc99e4-be73-4005-8df3-2e7f0d611b24" xsi:noNamespaceSchemaLocation="http://www.jetbrains.com/teamcity/schemas/9.0/project-config.xsd">
+  <name>deploy to test env</name>
+  <description />
+  <settings>
+    <options>
+      <option name="buildNumberPattern" value="%dep.DevpipeTest_Build.build.number%" />
+    </options>
+    <parameters />
+    <build-runners>
+      <runner id="RUNNER_23" name="Deploy" type="cargo-deploy-runner">
+        <parameters>
+          <param name="jetbrains.buildServer.deployer.container.type" value="tomcat8x" />
+          <param name="jetbrains.buildServer.deployer.sourcePath" value="target/%artifactName%" />
+          <param name="jetbrains.buildServer.deployer.targetUrl" value="localhost:8081" />
+          <param name="jetbrains.buildServer.deployer.username" value="tomcat" />
+          <param name="secure:jetbrains.buildServer.deployer.password" value="zxx90567b04051eaa0f" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+    </build-runners>
+    <vcs-settings />
+    <requirements />
+    <build-triggers />
+    <artifact-dependencies>
+      <dependency sourceBuildTypeId="DevpipeTest_Build" cleanDestination="true">
+        <revisionRule name="sameChainOrLastFinished" revision="latest.sameChainOrLastFinished" />
+        <artifact sourcePath="**/*&#xD;&#xA;" />
+      </dependency>
+    </artifact-dependencies>
+    <dependencies>
+      <depend-on sourceBuildTypeId="DevpipeTest_DeployInt">
+        <options>
+          <option name="run-build-if-dependency-failed" value="RUN_ADD_PROBLEM" />
+          <option name="take-started-build-with-same-revisions" value="true" />
+          <option name="take-successful-builds-only" value="true" />
+        </options>
+      </depend-on>
+    </dependencies>
+    <cleanup />
+  </settings>
+</build-type>
+

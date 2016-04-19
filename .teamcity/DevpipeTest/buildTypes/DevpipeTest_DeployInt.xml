@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<build-type xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" uuid="d2c02fe3-fa3a-4827-92bd-1f2fcffbabc4" xsi:noNamespaceSchemaLocation="http://www.jetbrains.com/teamcity/schemas/9.0/project-config.xsd">
+  <name>deploy to integration env</name>
+  <description />
+  <settings>
+    <options>
+      <option name="buildNumberPattern" value="%dep.DevpipeTest_Build.build.number%" />
+    </options>
+    <parameters />
+    <build-runners>
+      <runner id="RUNNER_21" name="Deploy" type="cargo-deploy-runner">
+        <parameters>
+          <param name="jetbrains.buildServer.deployer.container.type" value="tomcat8x" />
+          <param name="jetbrains.buildServer.deployer.sourcePath" value="%artifactName%" />
+          <param name="jetbrains.buildServer.deployer.targetUrl" value="localhost:8080" />
+          <param name="jetbrains.buildServer.deployer.username" value="tomcat" />
+          <param name="secure:jetbrains.buildServer.deployer.password" value="zxx90567b04051eaa0f" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+    </build-runners>
+    <vcs-settings />
+    <requirements />
+    <build-triggers>
+      <build-trigger id="TRIGGER_2" type="buildDependencyTrigger">
+        <parameters>
+          <param name="afterSuccessfulBuildOnly" value="true" />
+          <param name="dependsOn" value="DevpipeTest_Build" />
+        </parameters>
+      </build-trigger>
+    </build-triggers>
+    <artifact-dependencies>
+      <dependency sourceBuildTypeId="DevpipeTest_Build" cleanDestination="true">
+        <revisionRule name="sameChainOrLastFinished" revision="latest.sameChainOrLastFinished" />
+        <artifact sourcePath="target/%artifactName%" />
+      </dependency>
+    </artifact-dependencies>
+    <dependencies>
+      <depend-on sourceBuildTypeId="DevpipeTest_Build">
+        <options>
+          <option name="run-build-if-dependency-failed" value="RUN_ADD_PROBLEM" />
+          <option name="take-started-build-with-same-revisions" value="true" />
+          <option name="take-successful-builds-only" value="true" />
+        </options>
+      </depend-on>
+    </dependencies>
+    <cleanup />
+  </settings>
+</build-type>
+

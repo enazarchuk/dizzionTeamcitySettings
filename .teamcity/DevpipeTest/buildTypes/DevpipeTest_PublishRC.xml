@@ -10,7 +10,7 @@
     </options>
     <parameters />
     <build-runners>
-      <runner id="RUNNER_13" name="Maven" type="Maven2">
+      <runner id="RUNNER_13" name="set version" type="Maven2">
         <parameters>
           <param name="goals" value="versions:set -DnewVersion=0.0.1-%dep.DevpipeTest_Build.build.vcs.number%" />
           <param name="maven.home" value="" />

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" uuid="6b93082c-b558-4f98-a2bf-56c31e0174a8" xsi:noNamespaceSchemaLocation="http://www.jetbrains.com/teamcity/schemas/9.0/project-config.xsd">
+  <name>Portal2.0</name>
+  <parameters />
+  <cleanup />
+  <buildTypesOrder order="Portal20_Build,Portal20_DeployInt,Portal20_DeployTest,Portal20_DeployToProduction" />
+</project>
+

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<build-type xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" uuid="2c1ba92e-aa96-4bb6-bf76-b3f1a7916f25" xsi:noNamespaceSchemaLocation="http://www.jetbrains.com/teamcity/schemas/9.0/project-config.xsd">
+  <name>Deploy to integration env</name>
+  <description />
+  <settings>
+    <options>
+      <option name="artifactRules" value="dump.sql =&gt; dump-%intSuffix%.sql&#xA;dizzion.war =&gt; dizzion-%intSuffix%.war" />
+      <option name="buildNumberPattern" value="%dep.Portal20_Build.build.number%" />
+    </options>
+    <parameters>
+      <param name="intSuffix" value="int-%build.number%" />
+    </parameters>
+    <build-runners>
+      <runner id="RUNNER_4" name="" type="simpleRunner">
+        <parameters>
+          <param name="org.jfrog.artifactory.selectedDeployableServer.buildDependencies" value="Requires Artifactory Pro." />
+          <param name="org.jfrog.artifactory.selectedDeployableServer.envVarsExcludePatterns" value="*password*,*secret*" />
+          <param name="org.jfrog.artifactory.selectedDeployableServer.publishBuildInfo" value="true" />
+          <param name="script.content" value="mysqldump -P3306 -h192.168.0.144 -udumper -pdumper dizzionnv &gt; dump.sql" />
+          <param name="teamcity.step.mode" value="default" />
+          <param name="use.custom.script" value="true" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_8" name="Deploy" type="cargo-deploy-runner">
+        <parameters>
+          <param name="jetbrains.buildServer.deployer.container.type" value="tomcat8x" />
+          <param name="jetbrains.buildServer.deployer.sourcePath" value="dizzion.war" />
+          <param name="jetbrains.buildServer.deployer.targetUrl" value="localhost:8080" />
+          <param name="jetbrains.buildServer.deployer.username" value="tomcat" />
+          <param name="secure:jetbrains.buildServer.deployer.password" value="zxx90567b04051eaa0f" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+    </build-runners>
+    <vcs-settings />
+    <requirements />
+    <build-triggers>
+      <build-trigger id="TRIGGER_1" type="buildDependencyTrigger">
+        <parameters>
+          <param name="afterSuccessfulBuildOnly" value="true" />
+          <param name="dependsOn" value="Portal20_Build" />
+        </parameters>
+      </build-trigger>
+    </build-triggers>
+    <artifact-dependencies>
+      <dependency sourceBuildTypeId="Portal20_Build" cleanDestination="false">
+        <revisionRule name="sameChainOrLastFinished" revision="latest.sameChainOrLastFinished" />
+        <artifact sourcePath="dizzion.war" />
+      </dependency>
+    </artifact-dependencies>
+    <dependencies>
+      <depend-on sourceBuildTypeId="Portal20_Build">
+        <options>
+          <option name="run-build-if-dependency-failed" value="RUN_ADD_PROBLEM" />
+          <option name="take-started-build-with-same-revisions" value="true" />
+          <option name="take-successful-builds-only" value="true" />
+        </options>
+      </depend-on>
+    </dependencies>
+    <cleanup />
+  </settings>
+</build-type>
+

@@ -28,7 +28,7 @@
           <param name="userSettingsSelection" value="userSettingsSelection:default" />
         </parameters>
       </runner>
-      <runner id="RUNNER_17" name="Maven (1)" type="Maven2">
+      <runner id="RUNNER_17" name="publish rc" type="Maven2">
         <parameters>
           <param name="goals" value="package -Drevision=%dep.DevpipeTest_Build.build.vcs.number%" />
           <param name="maven.home" value="" />
@@ -37,8 +37,8 @@
           <param name="org.jfrog.artifactory.selectedDeployableServer.deployArtifacts" value="true" />
           <param name="org.jfrog.artifactory.selectedDeployableServer.envVarsExcludePatterns" value="*password*,*secret*" />
           <param name="org.jfrog.artifactory.selectedDeployableServer.publishBuildInfo" value="true" />
-          <param name="org.jfrog.artifactory.selectedDeployableServer.targetRepo" value="release-candidates" />
-          <param name="org.jfrog.artifactory.selectedDeployableServer.targetSnapshotRepo" value="release-candidates" />
+          <param name="org.jfrog.artifactory.selectedDeployableServer.targetRepo" value="libs-rc-local" />
+          <param name="org.jfrog.artifactory.selectedDeployableServer.targetSnapshotRepo" value="libs-rc-local" />
           <param name="org.jfrog.artifactory.selectedDeployableServer.urlId" value="0" />
           <param name="pomLocation" value="pom.xml" />
           <param name="teamcity.coverage.emma.include.source" value="true" />

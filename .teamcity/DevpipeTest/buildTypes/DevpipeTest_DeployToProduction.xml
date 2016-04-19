@@ -28,9 +28,6 @@
           <param name="org.jfrog.artifactory.selectedDeployableServer.deployArtifacts" value="true" />
           <param name="org.jfrog.artifactory.selectedDeployableServer.envVarsExcludePatterns" value="*password*,*secret*" />
           <param name="org.jfrog.artifactory.selectedDeployableServer.publishBuildInfo" value="true" />
-          <param name="org.jfrog.artifactory.selectedDeployableServer.targetRepo" value="ext-release-local" />
-          <param name="org.jfrog.artifactory.selectedDeployableServer.targetSnapshotRepo" value="ext-release-local" />
-          <param name="org.jfrog.artifactory.selectedDeployableServer.urlId" value="0" />
           <param name="pomLocation" value="pom.xml" />
           <param name="teamcity.coverage.emma.include.source" value="true" />
           <param name="teamcity.coverage.emma.instr.parameters" value="-ix -*Test*" />

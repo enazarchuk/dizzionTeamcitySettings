@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<build-type xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" uuid="1b65ecff-3f1d-41d0-af7a-7546636480a7" xsi:noNamespaceSchemaLocation="http://www.jetbrains.com/teamcity/schemas/9.0/project-config.xsd">
+  <name>publish RC</name>
+  <description />
+  <settings>
+    <options>
+      <option name="artifactRules" value="**/*" />
+      <option name="buildNumberPattern" value="%dep.Portal3_Build.build.number%" />
+      <option name="checkoutMode" value="ON_AGENT" />
+    </options>
+    <parameters />
+    <build-runners>
+      <runner id="RUNNER_12" name="repackage and publish RC" type="Maven2">
+        <parameters>
+          <param name="goals" value="war:war" />
+          <param name="maven.home" value="" />
+          <param name="mavenSelection" value="mavenSelection:default" />
+          <param name="org.jfrog.artifactory.selectedDeployableServer.defaultModuleVersionConfiguration" value="GLOBAL" />
+          <param name="org.jfrog.artifactory.selectedDeployableServer.deployArtifacts" value="true" />
+          <param name="org.jfrog.artifactory.selectedDeployableServer.envVarsExcludePatterns" value="*password*,*secret*" />
+          <param name="org.jfrog.artifactory.selectedDeployableServer.publishBuildInfo" value="true" />
+          <param name="org.jfrog.artifactory.selectedDeployableServer.targetRepo" value="release-candidates" />
+          <param name="org.jfrog.artifactory.selectedDeployableServer.targetSnapshotRepo" value="ext-snapshot-local" />
+          <param name="org.jfrog.artifactory.selectedDeployableServer.urlId" value="0" />
+          <param name="pomLocation" value="Dizzion-web/pom.xml" />
+          <param name="teamcity.build.workingDir" value="Dizzion-web/" />
+          <param name="teamcity.coverage.emma.include.source" value="true" />
+          <param name="teamcity.coverage.emma.instr.parameters" value="-ix -*Test*" />
+          <param name="teamcity.coverage.idea.includePatterns" value="*" />
+          <param name="teamcity.coverage.jacoco.patterns" value="+:*" />
+          <param name="teamcity.step.mode" value="default" />
+          <param name="userSettingsPath" value="" />
+          <param name="userSettingsSelection" value="userSettingsSelection:default" />
+        </parameters>
+      </runner>
+    </build-runners>
+    <vcs-settings />
+    <requirements />
+    <build-triggers />
+    <artifact-dependencies>
+      <dependency sourceBuildTypeId="Portal3_Build" cleanDestination="true">
+        <revisionRule name="sameChainOrLastFinished" revision="latest.sameChainOrLastFinished" />
+        <artifact sourcePath="**/*&#xD;&#xA;" />
+      </dependency>
+    </artifact-dependencies>
+    <dependencies>
+      <depend-on sourceBuildTypeId="Portal3_DeployTest">
+        <options>
+          <option name="run-build-if-dependency-failed" value="RUN_ADD_PROBLEM" />
+          <option name="take-started-build-with-same-revisions" value="true" />
+          <option name="take-successful-builds-only" value="true" />
+        </options>
+      </depend-on>
+    </dependencies>
+    <cleanup />
+  </settings>
+</build-type>
+

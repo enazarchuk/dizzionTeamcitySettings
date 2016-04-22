@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<build-type xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" uuid="cf550b45-a6f0-4600-a9f9-c66d1fd0c1d8" xsi:noNamespaceSchemaLocation="http://www.jetbrains.com/teamcity/schemas/9.0/project-config.xsd">
+  <name>build and test</name>
+  <description />
+  <settings>
+    <options>
+      <option name="artifactRules" value="**/*" />
+    </options>
+    <parameters>
+      <param name="warPath" value="Dizzion-web/target/dizzion.war" />
+    </parameters>
+    <build-runners>
+      <runner id="RUNNER_24" name="lock version" type="Maven2">
+        <parameters>
+          <param name="goals" value="versions:set -DnewVersion=%majorVersion%.%build.number%" />
+          <param name="maven.home" value="" />
+          <param name="mavenSelection" value="mavenSelection:default" />
+          <param name="org.jfrog.artifactory.selectedDeployableServer.defaultModuleVersionConfiguration" value="GLOBAL" />
+          <param name="pomLocation" value="pom.xml" />
+          <param name="teamcity.coverage.emma.include.source" value="true" />
+          <param name="teamcity.coverage.emma.instr.parameters" value="-ix -*Test*" />
+          <param name="teamcity.coverage.idea.includePatterns" value="*" />
+          <param name="teamcity.coverage.jacoco.patterns" value="+:*" />
+          <param name="teamcity.step.mode" value="default" />
+          <param name="userSettingsPath" value="" />
+          <param name="userSettingsSelection" value="userSettingsSelection:default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_7" name="" type="Maven2">
+        <parameters>
+          <param name="goals" value="clean install -Drevision=%build.vcs.number%" />
+          <param name="maven.home" value="" />
+          <param name="mavenSelection" value="mavenSelection:default" />
+          <param name="org.jfrog.artifactory.selectedDeployableServer.envVarsExcludePatterns" value="*password*,*secret*" />
+          <param name="org.jfrog.artifactory.selectedDeployableServer.publishBuildInfo" value="true" />
+          <param name="org.jfrog.artifactory.selectedDeployableServer.targetRepo" value="ext-snapshot-local" />
+          <param name="org.jfrog.artifactory.selectedDeployableServer.targetSnapshotRepo" value="ext-snapshot-local" />
+          <param name="pomLocation" value="pom.xml" />
+          <param name="teamcity.step.mode" value="default" />
+          <param name="userSettingsPath" value="" />
+          <param name="userSettingsSelection" value="userSettingsSelection:default" />
+        </parameters>
+      </runner>
+    </build-runners>
+    <vcs-settings>
+      <vcs-entry-ref root-id="Portal3_HttpsGithubComDizzionDevopsPortalV30git" />
+    </vcs-settings>
+    <requirements />
+    <build-triggers>
+      <build-trigger id="vcsTrigger" type="vcsTrigger">
+        <parameters>
+          <param name="quietPeriodMode" value="DO_NOT_USE" />
+        </parameters>
+      </build-trigger>
+    </build-triggers>
+    <cleanup />
+  </settings>
+</build-type>
+

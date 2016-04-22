@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" uuid="c2a51cb7-7cb4-4ce3-bfcb-5da6f4383506" xsi:noNamespaceSchemaLocation="http://www.jetbrains.com/teamcity/schemas/9.0/project-config.xsd">
+  <name>Portal3</name>
+  <parameters>
+    <param name="majorVersion" value="1" />
+  </parameters>
+  <cleanup />
+  <buildTypesOrder order="Portal3_Build,Portal3_DeployInt,Portal3_DeployTest,Portal3_PublishRC,Portal3_DeployToProduction" />
+</project>
+

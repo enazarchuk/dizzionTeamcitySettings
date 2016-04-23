@@ -6,7 +6,9 @@
     <options>
       <option name="buildNumberPattern" value="%dep.DevpipeTest_Build.build.number%" />
     </options>
-    <parameters />
+    <parameters>
+      <param name="artifactName" value="devpipe-test-1.0-SNAPSHOT.war" />
+    </parameters>
     <build-runners>
       <runner id="RUNNER_21" name="Deploy" type="cargo-deploy-runner">
         <parameters>

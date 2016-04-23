@@ -13,8 +13,8 @@
           <param name="jetbrains.buildServer.deployer.container.type" value="tomcat8x" />
           <param name="jetbrains.buildServer.deployer.sourcePath" value="%artifactName%" />
           <param name="jetbrains.buildServer.deployer.targetUrl" value="10.86.97.48:80" />
-          <param name="jetbrains.buildServer.deployer.username" value="tomcat" />
-          <param name="secure:jetbrains.buildServer.deployer.password" value="zxx90567b04051eaa0f" />
+          <param name="jetbrains.buildServer.deployer.username" value="admin" />
+          <param name="secure:jetbrains.buildServer.deployer.password" value="zxx192f478978efc1c5775d03cbe80d301b" />
           <param name="teamcity.step.mode" value="default" />
         </parameters>
       </runner>
